@@ -1,34 +1,31 @@
-//Trapezoidal rules using iteration method
-#include<iostream>
-#include<cmath>
+#include <iostream>
+#include <cmath>
+
 using namespace std;
-//function
-double f(double x){
-return sin(x);
-}
-//intgration of the function
-double intf(double x){
-return -cos(x);
-}
-//Trapezoidal method
-double trap(double a, double b, int n){
-double h=(b-a)/n;
-double sum=(f(a)+f(b))/2;
-for(int i=1; i<n; i++){
 
-double x=a+i*h;
-sum+=f(x);
+double f(double x) {
+    return 1 / (pow(x, 2) + 1);
 }
-return sum*h;
-}
-int main(){
-double a=0;
-double b=1;
-int n=100;
-cout<<"no. of iteration:"  <<"			"<<"values of interation: "<<"		"<<"real intgration:"<<endl;
-for (int i=1; i<n; i++){
-cout<<i<<"	"<<trap(a,b,i)<<endl;
 
+int main() {
+    double a, b;
+    cout << "Lower bound of integration, a = ";
+    cin >> a;
+    cout << "Upper bound of integration, b = ";
+    cin >> b;
+double fun=atan(b)-atan(a);
+    for (int n = 1; n < 100; n++) {
+        double h = (b - a) / n;
+        double sum = f(a) + f(b);
+        
+        for (int i = 1; i < n; i++) {
+            double x = a + i * h;
+            sum += 2 * f(x);
+        }
+        double error= fabs((sum*h/2)-fun)*100/fun;
+        cout << n << "\t" << (h * sum / 2) <<"error is "<<error<< endl;
+    }
+    
+    return 0;
 }
-return 0;
-}
+
